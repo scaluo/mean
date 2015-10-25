@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title><%= title %></title>
+  <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.min.css">
+  <script src="lib/jquery/dist/jquery.js"></script>
+  <script src="lib/bootstrap/dist/js/bootstrap.js"></script>
+</head>
+<body>
+  <h1><%= title %></h1>
+  <% for(var i in messages) { %>
+       <div class="flash"><%= messages[i] %></div>
+  <% } %>
+  <form action="/signin" method="post">
+		<div>
+			<label>邮箱:</label>
+			<input type="text" name="email" />
+		</div>
+		<div>
+			<label>密码	:</label>
+			<input type="password" name="password" />
+		</div>
+		<div>
+			<input type="submit" value="登录" />
+		</div>
+	</form>
+</body>
