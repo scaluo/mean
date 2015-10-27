@@ -26,8 +26,8 @@
 
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <%if (username){%>
-          <li><%=username%></li>
+        <%if (user){%>
+
           <li><a href="/signout">登出</a></li>
         <%}else{%>
           <li><a href="/signin">登录</a></li>
@@ -42,11 +42,16 @@
     <h1><%= content %></h1>
     <section ng-view></section>
   </div>
+  <script type="text/javascript">
+    window.user = <%- user || 'null'%>
+  </script>
   <script type="text/javascript" src="/lib/angular/angular.js"></script>
   <script type="text/javascript" src="/lib/angular-route/angular-route.js"></script>
   <script type="text/javascript" src="/example/example.client.module.js"></script>
   <script type="text/javascript" src="/example/controllers/example.client.controller.js"></script>
   <script type="text/javascript" src="/example/routes/example.client.route.js"></script>
+  <script type="text/javascript" src="/users/users.client.module.js"></script>
+  <script type="text/javascript" src="/users/services/authentication.client.service.js"></script>
   <script type="text/javascript" src="/application.js"></script>
 </body>
 </html>
