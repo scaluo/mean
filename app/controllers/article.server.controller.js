@@ -17,10 +17,73 @@ exports.create = function(req,res){
   article.save(function(err){
     if (err) {
       return res.status(400).send({
-          message: getErrorMessage(err);
+          message: getErrorMessage(err)
       });
     }else{
       res.json(article);
     }
   });
+};
+
+exports.list = function(req,res){
+  Article.find().sort('-created').populate('creator','username').exec(function(err,articles){
+    if (err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    }else{
+      res.json(articles);
+    }
+  });
+};
+
+exports.articleById = function(req,res,next,id){
+  Article.findById(id).populate('creator','username').exec(function(err,article){
+    if (err) return next(err);
+    if (!article) return next(new Error('读取文章失败'));
+    req.article = article;
+    next();
+  });
+};
+
+exports.read = function(req,res){
+  res.json(req.article);
+};
+
+exports.update = function(req,res){
+  var article = req.article;
+  article.title = req.body.title;
+  article.content = req.body.content;
+  article.save(function(err){
+    if (err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    }else{
+      res.json(article);
+    }
+
+  });
+};
+
+exports.delete = function(req,res){
+  var article = req.article;
+  article.remove(function(err){
+    if (err){
+      return res.status(400).send({
+        message: getErrorMessage(err)
+      });
+    }else{
+      res.json(article);
+    }
+  });
+};
+
+exports.hasAuthorization = function(req,res,next){
+  if (req.article.creator.id != req.user.id){
+    return res.status(403).send({
+      message: 'User is not authorized'
+    });
+  }
+  next();
 };
