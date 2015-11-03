@@ -1,0 +1,25 @@
+<section data-ng-controller="ArticlesController">
+<h1>新文章</h1>
+<form data-ng-submit="create()" novalidate>
+  <div>
+    <label for="title">标题</label>
+    <div>
+      <input type="text" data-ng-model="title" id="title" placeholder="标题" required/>
+    </div>
+  </div>
+  <div>
+    <label for="content">正文</label>
+    <div>
+      <textarea data-ng-model="content" id="content" cols="30" rows="10" placeholder="正文"></textarea>
+
+    </div>
+  </div>
+
+  <div>
+    <input type="submit" value="提交">
+  </div>
+  <div data-ng-show="error">
+    <strong data-ng-bind="error"></strong>
+  </div>
+</form>
+</section>
